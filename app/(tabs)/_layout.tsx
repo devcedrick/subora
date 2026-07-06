@@ -8,18 +8,18 @@ import { COLORS, COMPONENTS } from "@/constants/theme";
 
 const tabBar = COMPONENTS.tabBar;
 
+const TabIcon = ({ focused, icon }: TabIconProps) => {
+  return (
+    <View className="tabs-icon">
+      <View className={clsx("tabs-pill", focused && "tabs-active")}>
+        <Image source={icon} resizeMode="contain" className="tabs-glyph" />
+      </View>
+    </View>
+  );
+};
+
 const TabsLayout = () => {
   const insets = useSafeAreaInsets();
-
-  const TabIcon = ({ focused, icon }: TabIconProps) => {
-    return (
-      <View className="tabs-icon">
-        <View className={clsx("tabs-pill", focused && "tabs-active")}>
-          <Image source={icon} resizeMode="contain" className="tabs-glyph" />
-        </View>
-      </View>
-    );
-  };
 
   return (
     <Tabs
