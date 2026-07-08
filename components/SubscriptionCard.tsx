@@ -44,7 +44,7 @@ const SubscriptionCard = ({
 
         <View className="sub-price-box">
           <Text className="sub-price">
-            {formatCurrency(price * 50, currency)}
+            {formatCurrency(price, currency)}
           </Text>
           <Text className="sub-billing">{billing}</Text>
         </View>
