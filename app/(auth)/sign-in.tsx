@@ -245,7 +245,7 @@ export default function SignIn() {
             <View className="auth-field">
               <Text className="auth-label">Verification code</Text>
               <TextInput
-                className={`auth-input ${errors.fields.code ? "auth-input-error" : ""}`}
+                className={`auth-input ${errors?.fields?.code ? "auth-input-error" : ""}`}
                 value={code}
                 onChangeText={setCode}
                 placeholder="Enter code"
@@ -253,9 +253,9 @@ export default function SignIn() {
                 keyboardType="number-pad"
                 autoFocus
               />
-              {errors.fields.code && (
+              {errors?.fields?.code && (
                 <Text className="auth-error">
-                  {errors.fields.code.message}
+                  {errors?.fields?.code?.message}
                 </Text>
               )}
             </View>
@@ -476,7 +476,7 @@ export default function SignIn() {
           <View className="auth-field">
             <Text className="auth-label">Email</Text>
             <TextInput
-              className={`auth-input ${emailError || errors.fields.identifier ? "auth-input-error" : ""}`}
+              className={`auth-input ${emailError || errors?.fields?.identifier ? "auth-input-error" : ""}`}
               autoCapitalize="none"
               autoComplete="email"
               keyboardType="email-address"
@@ -489,9 +489,9 @@ export default function SignIn() {
               placeholderTextColor="rgba(0,0,0,0.35)"
             />
             {emailError && <Text className="auth-error">{emailError}</Text>}
-            {errors.fields.identifier && (
+            {errors?.fields?.identifier && (
               <Text className="auth-error">
-                {errors.fields.identifier.message}
+                {errors?.fields?.identifier?.message}
               </Text>
             )}
           </View>
@@ -505,7 +505,7 @@ export default function SignIn() {
               </Pressable>
             </View>
             <TextInput
-              className={`auth-input ${passwordError || errors.fields.password ? "auth-input-error" : ""}`}
+              className={`auth-input ${passwordError || errors?.fields?.password ? "auth-input-error" : ""}`}
               secureTextEntry
               value={password}
               onChangeText={setPassword}
@@ -518,16 +518,16 @@ export default function SignIn() {
             {passwordError && (
               <Text className="auth-error">{passwordError}</Text>
             )}
-            {errors.fields.password && (
+            {errors?.fields?.password && (
               <Text className="auth-error">
-                {errors.fields.password.message}
+                {errors?.fields?.password?.message}
               </Text>
             )}
           </View>
 
           {/* Global / non-field errors */}
-          {errors.global && (
-            <Text className="auth-error">{errors.global.message}</Text>
+          {errors?.global && (
+            <Text className="auth-error">{errors?.global?.message}</Text>
           )}
 
           {/* Submit button */}
