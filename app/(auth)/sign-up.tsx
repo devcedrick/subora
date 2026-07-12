@@ -138,7 +138,7 @@ export default function SignUp() {
                 <View className="auth-field">
                   <Text className="auth-label">Verification code</Text>
                   <TextInput
-                    className={`auth-input ${errors.fields.code ? "auth-input-error" : ""}`}
+                    className={`auth-input ${errors?.fields?.code ? "auth-input-error" : ""}`}
                     value={code}
                     onChangeText={setCode}
                     placeholder="Enter 6-digit code"
@@ -146,9 +146,9 @@ export default function SignUp() {
                     keyboardType="number-pad"
                     autoFocus
                   />
-                  {errors.fields.code && (
+                  {errors?.fields?.code && (
                     <Text className="auth-error">
-                      {errors.fields.code.message}
+                      {errors?.fields?.code?.message}
                     </Text>
                   )}
                 </View>
@@ -220,7 +220,7 @@ export default function SignUp() {
               <View className="auth-field">
                 <Text className="auth-label">Email</Text>
                 <TextInput
-                  className={`auth-input ${emailError || errors.fields.emailAddress ? "auth-input-error" : ""}`}
+                  className={`auth-input ${emailError || errors?.fields?.emailAddress ? "auth-input-error" : ""}`}
                   autoCapitalize="none"
                   autoComplete="email"
                   keyboardType="email-address"
@@ -233,9 +233,9 @@ export default function SignUp() {
                   placeholderTextColor="rgba(0,0,0,0.35)"
                 />
                 {emailError && <Text className="auth-error">{emailError}</Text>}
-                {errors.fields.emailAddress && (
+                {errors?.fields?.emailAddress && (
                   <Text className="auth-error">
-                    {errors.fields.emailAddress.message}
+                    {errors?.fields?.emailAddress?.message}
                   </Text>
                 )}
               </View>
@@ -244,7 +244,7 @@ export default function SignUp() {
               <View className="auth-field">
                 <Text className="auth-label">Password</Text>
                 <TextInput
-                  className={`auth-input ${passwordError || errors.fields.password ? "auth-input-error" : ""}`}
+                  className={`auth-input ${passwordError || errors?.fields?.password ? "auth-input-error" : ""}`}
                   secureTextEntry
                   value={password}
                   onChangeText={setPassword}
@@ -262,16 +262,16 @@ export default function SignUp() {
                 {passwordError && (
                   <Text className="auth-error">{passwordError}</Text>
                 )}
-                {errors.fields.password && (
+                {errors?.fields?.password && (
                   <Text className="auth-error">
-                    {errors.fields.password.message}
+                    {errors?.fields?.password?.message}
                   </Text>
                 )}
               </View>
 
               {/* Global / non-field errors */}
-              {errors.global && (
-                <Text className="auth-error">{errors.global.message}</Text>
+              {errors?.global && (
+                <Text className="auth-error">{errors?.global?.message}</Text>
               )}
 
               {/* Submit button */}
