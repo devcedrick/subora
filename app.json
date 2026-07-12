@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "react-native-subora",
-    "slug": "react-native-subora",
+    "name": "Subora",
+    "slug": "Subora",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "reactnativesubora",
+    "scheme": "subora",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
@@ -26,11 +26,13 @@
       "favicon": "./assets/images/favicon.png"
     },
     "plugins": [
+      "expo-secure-store",
+      "@clerk/expo",
       "expo-router",
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/splash-icon.png",
+          "image": "./assets/images/avatar.png",
           "imageWidth": 200,
           "resizeMode": "contain",
           "backgroundColor": "#ffffff",
