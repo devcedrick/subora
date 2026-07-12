@@ -19,6 +19,22 @@ import icons from "@/constants/icons";
 
 const SafeAreaView = styled(RNSafeAreaView);
 
+const LayoutWrap = ({ children }: { children: React.ReactNode }) => (
+  <SafeAreaView className="auth-safe-area">
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      className="flex-1"
+    >
+      <ScrollView
+        className="auth-scroll"
+        contentContainerClassName="auth-content"
+        keyboardShouldPersistTaps="handled"
+      >
+        {children}
+      </ScrollView>
+    </KeyboardAvoidingView>
+  </SafeAreaView>
+);
 // ─── helpers ──────────────────────────────────────────────────
 const isValidEmail = (email: string) =>
   /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -216,23 +232,6 @@ export default function SignIn() {
       <Text className="auth-title">{title}</Text>
       <Text className="auth-subtitle">{subtitle}</Text>
     </View>
-  );
-
-  const LayoutWrap = ({ children }: { children: React.ReactNode }) => (
-    <SafeAreaView className="auth-safe-area">
-      <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-        className="flex-1"
-      >
-        <ScrollView
-          className="auth-scroll"
-          contentContainerClassName="auth-content"
-          keyboardShouldPersistTaps="handled"
-        >
-          {children}
-        </ScrollView>
-      </KeyboardAvoidingView>
-    </SafeAreaView>
   );
 
   // ── MFA / client-trust verification screen ────────────────
