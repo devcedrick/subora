@@ -2,6 +2,7 @@ import { useAuth, useSignUp } from "@clerk/expo";
 import { type Href, Link, useRouter } from "expo-router";
 import { styled } from "nativewind";
 import React, { useState } from "react";
+import { usePostHog } from "posthog-react-native";
 import {
   ActivityIndicator,
   Image,
@@ -30,6 +31,7 @@ export default function SignUp() {
   const { signUp, errors, fetchStatus } = useSignUp();
   const { isSignedIn } = useAuth();
   const router = useRouter();
+  const posthog = usePostHog();
 
   const [emailAddress, setEmailAddress] = useState("");
   const [password, setPassword] = useState("");
@@ -72,6 +74,7 @@ export default function SignUp() {
     await signUp.verifications.verifyEmailCode({ code });
 
     if (signUp.status === "complete") {
+      posthog.capture("user_signed_up");
       await signUp.finalize({
         navigate: ({ session, decorateUrl }) => {
           if (session?.currentTask) {

@@ -2,6 +2,7 @@ import "@/global.css";
 import { useAuth, useUser } from "@clerk/expo";
 import { styled } from "nativewind";
 import React from "react";
+import { usePostHog } from "posthog-react-native";
 import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView as RNSafeAreaView } from "react-native-safe-area-context";
 
@@ -29,9 +30,12 @@ const InfoRow = ({
 const Settings = () => {
   const { signOut } = useAuth();
   const { user } = useUser();
+  const posthog = usePostHog();
 
   const handleSignOut = async () => {
     try {
+      posthog.capture("user_signed_out");
+      posthog.reset();
       await signOut();
     } catch (e) {
       console.error(e);

@@ -2,6 +2,7 @@ import { useSignIn } from "@clerk/expo";
 import { type Href, Link, useRouter } from "expo-router";
 import { styled } from "nativewind";
 import React, { useState } from "react";
+import { usePostHog } from "posthog-react-native";
 import {
   ActivityIndicator,
   Image,
@@ -45,6 +46,7 @@ const MIN_PASSWORD_LENGTH = 8;
 export default function SignIn() {
   const { signIn, errors, fetchStatus } = useSignIn();
   const router = useRouter();
+  const posthog = usePostHog();
 
   // Basic sign in state
   const [emailAddress, setEmailAddress] = useState("");
@@ -93,6 +95,7 @@ export default function SignIn() {
     }
 
     if (signIn.status === "complete") {
+      posthog.capture("user_signed_in", { method: "password" });
       await signIn.finalize({
         navigate: ({ session, decorateUrl }) => {
           if (session?.currentTask) {
@@ -122,6 +125,7 @@ export default function SignIn() {
     await signIn.mfa.verifyEmailCode({ code });
 
     if (signIn.status === "complete") {
+      posthog.capture("user_signed_in", { method: "mfa" });
       await signIn.finalize({
         navigate: ({ session, decorateUrl }) => {
           if (session?.currentTask) {
@@ -181,18 +185,19 @@ export default function SignIn() {
   // Step 3: Submit new password
   const handleSubmitNewPassword = async () => {
     if (!canSubmitNewPassword) return;
-    
+
     const { error } = await signIn.resetPasswordEmailCode.submitPassword({
       password: newPassword,
       signOutOfOtherSessions: true,
     });
-    
+
     if (error) {
       console.error(JSON.stringify(error, null, 2));
       return;
     }
 
     if (signIn.status === 'complete') {
+      posthog.capture("password_reset_completed");
       const { error: finalizeError } = await signIn.finalize({
         navigate: async ({ session, decorateUrl }) => {
           if (session?.currentTask) {
@@ -500,7 +505,7 @@ export default function SignIn() {
           <View className="auth-field">
             <View className="flex-row items-center justify-between">
               <Text className="auth-label">Password</Text>
-              <Pressable onPress={() => setForgotPasswordStep("email")}>
+              <Pressable onPress={() => { setForgotPasswordStep("email"); posthog.capture("password_reset_started"); }}>
                 <Text className="text-sm font-sans-semibold text-accent">Forgot?</Text>
               </Pressable>
             </View>
