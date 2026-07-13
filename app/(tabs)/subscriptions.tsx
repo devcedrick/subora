@@ -1,7 +1,7 @@
 import SubscriptionCard from "@/components/SubscriptionCard";
-import { HOME_SUBSCRIPTIONS } from "@/constants/data";
+import { HOME_SUBSCRIPTIONS, subscribeToSubscriptions } from "@/constants/data";
 import { styled } from "nativewind";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   FlatList,
   Keyboard,
@@ -19,8 +19,15 @@ const SafeAreaView = styled(RNSafeAreaView);
 const Subscriptions = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [expandedId, setExpandedId] = useState<string | null>(null);
+  const [subscriptions, setSubscriptions] = useState(HOME_SUBSCRIPTIONS);
 
-  const filteredSubscriptions = HOME_SUBSCRIPTIONS.filter((sub) =>
+  useEffect(() => {
+    return subscribeToSubscriptions(() => {
+      setSubscriptions([...HOME_SUBSCRIPTIONS]);
+    });
+  }, []);
+
+  const filteredSubscriptions = subscriptions.filter((sub) =>
     sub.name.toLowerCase().includes(searchQuery.toLowerCase()),
   );
 
