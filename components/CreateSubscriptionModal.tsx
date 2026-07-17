@@ -69,7 +69,8 @@ export default function CreateSubscriptionModal({
       setError("Please enter a provider name");
       return;
     }
-    if (!price.trim() || isNaN(Number(price))) {
+    const numericPrice = Number(price);
+    if (!price.trim() || isNaN(numericPrice) || numericPrice <= 0 || !isFinite(numericPrice)) {
       setError("Please enter a valid price");
       return;
     }
