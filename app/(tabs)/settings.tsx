@@ -34,9 +34,9 @@ const Settings = () => {
 
   const handleSignOut = async () => {
     try {
+      await signOut();
       posthog.capture("user_signed_out");
       posthog.reset();
-      await signOut();
     } catch (e) {
       console.error(e);
     }
