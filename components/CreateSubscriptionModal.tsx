@@ -60,6 +60,7 @@ export default function CreateSubscriptionModal({
     setPrice("");
     setFrequency("Monthly");
     setCategory("AI Tools");
+    setIsCategoryDropdownOpen(false);
     setError("");
   };
 
