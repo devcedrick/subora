@@ -78,7 +78,7 @@ export default function CreateSubscriptionModal({
     const randomColor =
       PASTEL_COLORS[Math.floor(Math.random() * PASTEL_COLORS.length)];
 
-    const newSub: any = {
+    const newSub: Subscription = {
       id: Math.random().toString(36).substring(7),
       icon: icons.wallet, // Fallback icon
       name: name.trim(),
@@ -101,9 +101,9 @@ export default function CreateSubscriptionModal({
     posthog.capture("subscription_created", {
       provider_name: newSub.name,
       price: newSub.price,
-      currency: newSub.currency,
+      currency: newSub.currency ?? null,
       frequency: newSub.billing,
-      category: newSub.category,
+      category: newSub.category ?? null,
     });
     handleClose();
   };
