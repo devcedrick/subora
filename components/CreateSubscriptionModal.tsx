@@ -109,7 +109,7 @@ export default function CreateSubscriptionModal({
   };
 
   return (
-    <Modal visible={visible} animationType="slide" transparent>
+    <Modal visible={visible} animationType="slide" transparent onRequestClose={handleClose}>
       <View
         className="modal-overlay"
         style={{ backgroundColor: "rgba(0, 0, 0, 0.7)" }}
