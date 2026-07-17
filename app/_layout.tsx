@@ -18,9 +18,18 @@ function AppContent() {
 
   useEffect(() => {
     if (previousPathname.current !== pathname) {
+      const ALLOWED_SCREEN_PARAMS = new Set([
+        "screen", "referrer", "source", "from", "tab", "section",
+      ]);
+      const safeParams: Record<string, string> = {};
+      for (const key of Object.keys(params)) {
+        if (ALLOWED_SCREEN_PARAMS.has(key)) {
+          safeParams[key] = String(params[key]);
+        }
+      }
       posthog.screen(pathname, {
         previous_screen: previousPathname.current ?? null,
-        ...params,
+        ...safeParams,
       });
       previousPathname.current = pathname;
     }
