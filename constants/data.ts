@@ -105,3 +105,18 @@ export const HOME_SUBSCRIPTIONS: Subscription[] = [
     color: "#b8e8d0",
   },
 ];
+
+type Listener = () => void;
+const listeners = new Set<Listener>();
+
+export const subscribeToSubscriptions = (listener: Listener) => {
+  listeners.add(listener);
+  return () => {
+    listeners.delete(listener);
+  };
+};
+
+export const addSubscription = (subscription: Subscription) => {
+  HOME_SUBSCRIPTIONS.unshift(subscription);
+  listeners.forEach((listener) => listener());
+};
